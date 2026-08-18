@@ -2,7 +2,9 @@ import { useCallback, useState } from "react";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
+import { getAftercareHome } from "@/apis/patient";
 import ConsultationFooter from "@/components/Footer/ConsultationFooter";
 import { useConsultationReservationStore } from "@/stores/useConsultationReservationStore";
 import type { ApiErrorResponse } from "@/types/consultation.type";
@@ -18,8 +20,6 @@ import ReservationConfirmSheet from "./components/ReservationConfirmSheet";
 import SubTitleSection from "./components/SubTitleSection";
 import SymptomSection from "./components/SymptomSection";
 import { useCreateConsultationAppointment } from "./hooks/useCreateConsultationAppointment";
-
-const MOCK_CASE_ID = 1;
 
 const SYMPTOM_CATEGORY_BY_TYPE: Record<SymptomType, SymptomCategory> = {
   pain: "PAIN",
@@ -40,6 +40,10 @@ function PreConsultationPage() {
   const [submitErrorMessage, setSubmitErrorMessage] = useState<string | null>(
     null,
   );
+  const { data: aftercareHome, isPending: isAftercareHomePending } = useQuery({
+    queryKey: ["aftercare", "home"],
+    queryFn: getAftercareHome,
+  });
   const { mutateAsync: createAppointment, isPending: isSubmitting } =
     useCreateConsultationAppointment();
   const {
@@ -84,9 +88,16 @@ function PreConsultationPage() {
 
     setSubmitErrorMessage(null);
 
+    if (!aftercareHome?.caseId) {
+      setSubmitErrorMessage(
+        "사후관리 케이스 정보를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.",
+      );
+      return;
+    }
+
     try {
       const appointment = await createAppointment({
-        caseId: MOCK_CASE_ID,
+        caseId: aftercareHome.caseId,
         slotId: selectedSlot.slotId,
         symptomCategories: selectedSymptoms.map(
           (symptom) => SYMPTOM_CATEGORY_BY_TYPE[symptom],
@@ -124,7 +135,7 @@ function PreConsultationPage() {
       </main>
 
       <ConsultationFooter
-        disabled={!canSubmit}
+        disabled={!canSubmit || isAftercareHomePending || !aftercareHome?.caseId}
         onClick={handleSubmit}
         className="bg-transparent bg-gradient-to-b from-white/0 to-white/60 backdrop-blur-[4.7px]"
         buttonClassName="disabled:bg-[#FDFDFF] disabled:text-[#9795A0]"

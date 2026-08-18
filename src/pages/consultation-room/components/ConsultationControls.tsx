@@ -1,11 +1,14 @@
 import cameraIcon from "@/assets/icons/consultation-room/camera.svg";
+import cameraOffIcon from "@/assets/icons/consultation-room/camera-off.svg";
 import endCallIcon from "@/assets/icons/consultation-room/end-call.svg";
 import microphoneIcon from "@/assets/icons/consultation-room/microphone.svg";
+import microphoneOffIcon from "@/assets/icons/consultation-room/microphone-off.svg";
 import switchCameraIcon from "@/assets/icons/consultation-room/switch-camera.svg";
 
 interface ControlButtonProps {
   label: string;
   icon: string;
+  offIcon?: string;
   active?: boolean;
   danger?: boolean;
   disabled?: boolean;
@@ -15,6 +18,7 @@ interface ControlButtonProps {
 function ControlButton({
   label,
   icon,
+  offIcon,
   active = true,
   danger = false,
   disabled = false,
@@ -33,18 +37,13 @@ function ControlButton({
         "disabled:cursor-not-allowed disabled:opacity-40",
         danger
           ? "bg-[#DB4036] hover:bg-[#c9382f]"
-          : active
-            ? "bg-white/10 hover:bg-white/20"
-            : "bg-white text-[#1A1A1A] hover:bg-white/90",
+          : "bg-white/10 hover:bg-white/20",
       ].join(" ")}
     >
       <img
-        src={icon}
+        src={!active && offIcon ? offIcon : icon}
         alt=""
-        className={[
-          "size-6 object-contain",
-          !danger && !active ? "brightness-0" : "",
-        ].join(" ")}
+        className="size-6 object-contain"
       />
     </button>
   );
@@ -85,6 +84,7 @@ function ConsultationControls({
       <ControlButton
         label={cameraOn ? "카메라 끄기" : "카메라 켜기"}
         icon={cameraIcon}
+        offIcon={cameraOffIcon}
         active={cameraOn}
         disabled={disabled}
         onClick={onToggleCamera}
@@ -92,6 +92,7 @@ function ConsultationControls({
       <ControlButton
         label={microphoneOn ? "마이크 끄기" : "마이크 켜기"}
         icon={microphoneIcon}
+        offIcon={microphoneOffIcon}
         active={microphoneOn}
         disabled={disabled}
         onClick={onToggleMicrophone}

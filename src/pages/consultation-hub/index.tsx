@@ -1,7 +1,9 @@
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
+import { getAftercareHome } from "@/apis/patient";
 import ConsultationFooter from "@/components/Footer/ConsultationFooter";
 import ConsultationHeader from "@/components/Header/ConsultationHeader";
 import type { Consultation } from "./components/ConsultationCard";
@@ -16,7 +18,6 @@ import { toSummaryRequestLanguage } from "@/pages/consultation-summary/utils/con
 import { usePreferencesStore } from "@/stores/usePreferencesStore";
 
 type ConsultationTab = "history" | "ongoing";
-const MOCK_CASE_ID = 1;
 
 const mockMedicalStaff = {
   medicalStaffName: "박지태",
@@ -29,12 +30,16 @@ function ConsultationHubPage() {
   const locale = usePreferencesStore((state) => state.locale);
   const summaryLanguage = toSummaryRequestLanguage(locale);
   const [activeTab, setActiveTab] = useState<ConsultationTab>("history");
+  const { data: aftercareHome } = useQuery({
+    queryKey: ["aftercare", "home"],
+    queryFn: getAftercareHome,
+  });
   const {
     data: activeAppointments = [],
     isPending: isAppointmentPending,
     isError: isAppointmentError,
     refetch: refetchAppointment,
-  } = useActiveConsultationAppointment(MOCK_CASE_ID);
+  } = useActiveConsultationAppointment(aftercareHome?.caseId ?? null);
   const {
     data: consultationHistoryData = [],
     isPending: isHistoryPending,

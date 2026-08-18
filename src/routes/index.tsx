@@ -1,5 +1,6 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import AppLayout from "@/layouts/AppLayout";
+import ConsultationRoomLayout from "@/layouts/ConsultationRoomLayout";
 import AftercarePage from "@/pages/aftercare";
 import EmergencyReportPage from "@/pages/aftercare/emergency-report";
 import HomePage from "@/pages/home";
@@ -17,6 +18,16 @@ import ConsultationDetailPage from "@/pages/consultation-detail";
 import ConsultationSummaryPage from "@/pages/consultation-summary";
 
 const router = createBrowserRouter([
+  {
+    path: "/consultation/:appointmentId/room",
+    element: <ConsultationRoomLayout />,
+    children: [
+      {
+        index: true,
+        element: <ConsultationRoomPage />,
+      },
+    ],
+  },
   {
     element: <AppLayout />,
     children: [
@@ -66,10 +77,6 @@ const router = createBrowserRouter([
           {
             path: ":appointmentId/waiting",
             element: <ConsultationWaitingPage />,
-          },
-          {
-            path: ":appointmentId/room",
-            element: <ConsultationRoomPage />,
           },
           {
             path: "summary/:summaryId",

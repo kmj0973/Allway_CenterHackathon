@@ -11,6 +11,7 @@ import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useConsultationStore } from "@/stores/useConsultationStore";
 
 import speakerIcon from "@/assets/icons/consultation-room/speaker.svg";
+import speakerOffIcon from "@/assets/icons/consultation-room/speaker-off.svg";
 import CaptionOverlay from "./components/CaptionOverlay";
 import ConnectionStatus from "./components/ConnectionStatus";
 import ConsultationControls from "./components/ConsultationControls";
@@ -252,10 +253,7 @@ function ConsultationRoomPage() {
   return (
     <main
       onClick={handleRoomClick}
-      className={[
-        "relative isolate h-dvh min-h-[390px] w-full overflow-hidden bg-[#1A1A1A] text-white [container-type:inline-size]",
-        role === "PATIENT" ? "mx-auto max-w-[430px]" : "",
-      ].join(" ")}
+      className="relative isolate h-full w-full overflow-hidden bg-[#1A1A1A] text-white [container-type:inline-size]"
     >
       <RemoteVideo
         track={remoteVideoTrack}
@@ -276,13 +274,10 @@ function ConsultationRoomPage() {
       >
         <span className="relative block size-6">
           <img
-            src={speakerIcon}
+            src={speakerOn ? speakerIcon : speakerOffIcon}
             alt=""
-            className={`size-6 object-contain transition-opacity ${speakerOn ? "" : "opacity-70"}`}
+            className="size-6 object-contain"
           />
-          {!speakerOn && (
-            <span className="absolute left-1/2 top-1/2 h-0.5 w-7 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-full bg-white" />
-          )}
         </span>
       </button>
 

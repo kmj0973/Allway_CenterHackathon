@@ -27,5 +27,24 @@
       "caption": "No schedule",
       "title": "No consultation booked"
     }
+  },
+  "tutorial": {
+    "skip": "Skip",
+    "history": {
+      "title": "Check your chat history",
+      "description": "Swipe right to see\nyour chat history"
+    },
+    "chat": {
+      "title": "Ask anything about your recovery",
+      "description": "Feel free to ask the AI."
+    },
+    "aftercare": {
+      "title": "Check your recovery status",
+      "description": "See your recovery stage and today's status, and access the emergency medical report if needed."
+    },
+    "consultation": {
+      "title": "Talk to your doctor by video",
+      "description": "Even after returning home, you can book a video consultation with your doctor."
+    }
   }
 }

@@ -96,7 +96,7 @@ function LocalVideo({ track, cameraOn, microphoneOn }: LocalVideoProps) {
       onPointerUp={handlePointerEnd}
       onPointerCancel={handlePointerEnd}
       style={{ transform: `scale(${scale})` }}
-      className="absolute right-5 top-5 h-[173px] w-[133px] origin-top-right touch-none select-none overflow-hidden rounded-[11px] border-2 border-white bg-[#333] shadow-lg transition-transform duration-100 ease-out will-change-transform motion-reduce:transition-none"
+      className="absolute right-5 top-5 h-[173px] w-[133px] origin-top-right touch-none select-none overflow-hidden rounded-[11px] border-2 border-white bg-[#333] shadow-lg transition-transform duration-100 ease-out will-change-transform landscape:h-[133px] landscape:w-[173px] motion-reduce:transition-none"
     >
       <div
         ref={containerRef}
