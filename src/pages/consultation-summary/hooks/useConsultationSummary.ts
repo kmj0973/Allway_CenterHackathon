@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getConsultationSummary } from "@/apis/consultation/consultation.api";
+import { getConsultationSummary } from "@/apis/consultation/summary.api";
 import type { SummaryRequestLanguage } from "@/types/consultation.type";
 import { consultationSummaryQueryKey } from "../utils/consultationSummary";
 

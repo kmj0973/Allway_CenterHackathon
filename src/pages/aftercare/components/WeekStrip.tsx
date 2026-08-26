@@ -1,4 +1,4 @@
-import type { SupportedLocale } from "@/types/preferences";
+import type { SupportedLocale } from "@/types/preferences.type";
 import { toDayKey } from "@/utils/aftercare";
 import { cn } from "@/utils/cn";
 import { formatWeekday } from "@/utils/dateTime";
@@ -22,7 +22,7 @@ function WeekStrip({ days, today, locale }: WeekStripProps) {
   const todayKey = toDayKey(today);
 
   return (
-    <ul className="flex items-center gap-1.75 px-5">
+    <ul className="flex items-center justify-around gap-1.75 px-5">
       {days.map((day) => {
         const key = toDayKey(day);
         const isToday = key === todayKey;
@@ -33,7 +33,7 @@ function WeekStrip({ days, today, locale }: WeekStripProps) {
           <li key={key} className="flex flex-col items-center gap-1">
             <span
               className={cn(
-                "text-caption font-medium",
+                "text-caption leading-[1.25] font-medium tracking-[-0.025em]",
                 isFuture ? "text-week-past" : "text-week-upcoming",
               )}
             >

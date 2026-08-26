@@ -11,7 +11,7 @@ import ConsultationCancelSheet from "@/pages/consultation-confirmed/components/C
 import ConsultationEntryNotice from "@/pages/consultation-confirmed/components/ConsultationEntryNotice";
 import { useConsultationReservationStore } from "@/stores/useConsultationReservationStore";
 import { usePreferencesStore } from "@/stores/usePreferencesStore";
-import type { ApiErrorResponse } from "@/types/consultation.type";
+import type { ApiErrorResponse } from "@/types/api.type";
 import type { ConsultationCancelReason } from "@/types/consultationReservation.type";
 import {
   formatConfirmedDateTime,

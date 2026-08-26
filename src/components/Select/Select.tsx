@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { useId, type SelectHTMLAttributes } from "react";
 
-import chevronDown from "@/assets/chevron-down.svg";
+import chevronDown from "@/assets/common/chevron-down.svg";
 import { cn } from "@/utils/cn";
 
 const selectVariants = cva(

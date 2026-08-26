@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 
-import type { SupportedLocale } from "@/types/preferences";
+import type { SupportedLocale } from "@/types/preferences.type";
 import { cn } from "@/utils/cn";
 import {
   formatAppointmentTime,

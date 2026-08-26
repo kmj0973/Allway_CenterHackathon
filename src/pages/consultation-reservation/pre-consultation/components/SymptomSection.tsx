@@ -72,10 +72,8 @@ export default function SymptomSection({
           placeholder={t("preConsultation.symptoms.placeholder")}
           onChange={(event) => onChangeDescription(event.target.value)}
           className={cn(
-            "w-full resize-none rounded-[18px] border border-border-input bg-transparent px-5 py-[18px] text-base leading-[1.5] tracking-tight text-text-01 transition-colors placeholder:text-[15px] placeholder:font-light placeholder:text-text-04 focus:border-action-secondary-text focus:bg-white/80 focus:outline-none",
-            description.length > 0
-              ? "min-h-[153px]"
-              : "min-h-[174px]",
+            "w-full resize-none rounded-[18px] border border-calendar-control-border bg-transparent px-5 py-[18px] text-base leading-[1.5] tracking-tight text-text-01 transition-colors placeholder:text-[15px] placeholder:font-light placeholder:text-text-04 focus:border-action-secondary-text focus:bg-white/80 focus:outline-none",
+            description.length > 0 ? "min-h-[153px]" : "min-h-[174px]",
           )}
         />
         <span className="pointer-events-none absolute bottom-[18px] right-5 text-[13px] text-text-04">

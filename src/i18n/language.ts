@@ -1,5 +1,8 @@
 import { LOCALE_STORAGE_KEY } from "@/constants/storageKey";
-import { isSupportedLocale, type SupportedLocale } from "@/types/preferences";
+import {
+  isSupportedLocale,
+  type SupportedLocale,
+} from "@/types/preferences.type";
 
 //브라우저 언어 감지 및 데이터 정규화 함수
 export function resolveSupportedLocale(

@@ -10,5 +10,8 @@
   "photo": "사진",
   "send": "보내기",
   "stop": "답변 중단",
-  "attachedImage": "첨부한 사진"
+  "attachedImage": "첨부한 사진",
+  "openImage": "첨부 사진 크게 보기",
+  "closeImage": "확대 사진 닫기",
+  "sendError": "메시지를 보내지 못했어요. 입력 내용을 복구했으니 다시 시도해 주세요."
 }

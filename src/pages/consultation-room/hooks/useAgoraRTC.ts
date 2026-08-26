@@ -13,7 +13,7 @@ import type {
   ConsultationCaption,
   JoinConsultationResponse,
 } from "@/types/consultation.type";
-import { renewConsultationRtcToken } from "@/apis/consultation/consultation.api";
+import { renewConsultationRtcToken } from "@/apis/consultation/room.api";
 import {
   decodeSttMessage,
   type DecodedCaption,
@@ -24,6 +24,7 @@ type RoomConnectionState = ConnectionState | "IDLE" | "FAILED";
 interface UseAgoraRTCResult {
   localVideoTrack: ICameraVideoTrack | null;
   remoteVideoTrack: IRemoteVideoTrack | null;
+  remoteCameraOff: boolean;
   microphoneOn: boolean;
   cameraOn: boolean;
   speakerOn: boolean;
@@ -63,6 +64,7 @@ export function useAgoraRTC(
     useState<ICameraVideoTrack | null>(null);
   const [remoteVideoTrack, setRemoteVideoTrack] =
     useState<IRemoteVideoTrack | null>(null);
+  const [remoteCameraOff, setRemoteCameraOff] = useState(false);
   const [microphoneOn, setMicrophoneOn] = useState(true);
   const [cameraOn, setCameraOn] = useState(true);
   const [speakerOn, setSpeakerOn] = useState(true);
@@ -164,10 +166,12 @@ export function useAgoraRTC(
 
         if (mediaType === "video") {
           setRemoteVideoTrack(user.videoTrack ?? null);
+          setRemoteCameraOff(false);
         }
 
         if (mediaType === "audio" && user.audioTrack) {
           setPeerAudioPublished(true);
+          setRemoteCameraOff(!user.hasVideo);
           user.audioTrack.setVolume(speakerOnRef.current ? 100 : 0);
           user.audioTrack.play();
         }
@@ -183,6 +187,7 @@ export function useAgoraRTC(
     (user: IAgoraRTCRemoteUser, mediaType: "audio" | "video") => {
       if (mediaType === "video" && remoteUserRef.current?.uid === user.uid) {
         setRemoteVideoTrack(null);
+        setRemoteCameraOff(true);
       }
     },
     [],
@@ -193,6 +198,7 @@ export function useAgoraRTC(
 
     remoteUserRef.current = null;
     setRemoteVideoTrack(null);
+    setRemoteCameraOff(false);
   }, []);
 
   const handleConnectionStateChange = useCallback(
@@ -261,6 +267,7 @@ export function useAgoraRTC(
 
     setLocalVideoTrack(null);
     setRemoteVideoTrack(null);
+    setRemoteCameraOff(false);
     setMicrophoneOn(true);
     setCameraOn(true);
     setTokenWillExpire(false);
@@ -385,6 +392,7 @@ export function useAgoraRTC(
   return {
     localVideoTrack,
     remoteVideoTrack,
+    remoteCameraOff,
     microphoneOn,
     cameraOn,
     speakerOn,

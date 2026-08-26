@@ -1,5 +1,5 @@
-import cardLayers from "@/assets/card-layers.svg";
-import cardCamera from "@/assets/card-symbol-2.svg";
+import cardLayers from "@/assets/home/card-layers.svg";
+import cardCamera from "@/assets/home/card-symbol-2.svg";
 import { cn } from "@/utils/cn";
 
 /*

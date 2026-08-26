@@ -2,11 +2,11 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
-import { verifyAccessLink } from "@/apis/patient";
+import { verifyAccessLink } from "@/apis/patient.api";
 import { LOCALE_TO_API_LANGUAGE } from "@/constants/settings";
 import { ACCESS_TOKEN_STORAGE_KEY } from "@/constants/storageKey";
 import { usePreferencesStore } from "@/stores/usePreferencesStore";
-import type { SupportedLocale } from "@/types/preferences";
+import type { SupportedLocale } from "@/types/preferences.type";
 
 import BirthDateStep, { type BirthDate } from "./components/BirthDateStep";
 import IntroStep from "./components/IntroStep";
@@ -95,12 +95,17 @@ function OnboardingPage() {
     void setLocale(nextLocale);
   };
 
-  if (step === "splash") {
-    return <SplashStep onFinish={() => void goNext()} />;
-  }
-
-  if (step === "intro") {
-    return <IntroStep onStart={goNext} />;
+  if (step === "splash" || step === "intro") {
+    return (
+      <div className="relative min-h-dvh overflow-hidden">
+        <IntroStep onStart={goNext} />
+        {step === "splash" && (
+          <div className="fixed inset-y-0 left-1/2 z-50 w-full max-w-app -translate-x-1/2 overflow-hidden">
+            <SplashStep onFinish={() => void goNext()} />
+          </div>
+        )}
+      </div>
+    );
   }
 
   return (

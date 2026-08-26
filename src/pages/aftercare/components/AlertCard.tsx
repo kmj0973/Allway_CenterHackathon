@@ -1,4 +1,4 @@
-import alertIcon from "@/assets/alert.svg";
+import alertIcon from "@/assets/aftercare/alert.svg";
 
 interface AlertCardProps {
   title: string;

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-import chevronLeft from "@/assets/chevron-left.svg";
+import chevronLeft from "@/assets/common/chevron-left.svg";
 
 interface PageHeaderProps {
   title: string;

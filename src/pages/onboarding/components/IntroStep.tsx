@@ -1,10 +1,10 @@
 import { useTranslation } from "react-i18next";
 
-import bgStripe from "@/assets/splash/bg-stripe.png";
-import glow1 from "@/assets/splash/glow-1.svg";
-import glow2 from "@/assets/splash/glow-2.svg";
-import glow3 from "@/assets/splash/glow-3.svg";
-import glow5 from "@/assets/splash/glow-5.svg";
+import bgStripe from "@/assets/onboarding/bg-stripe.png";
+import glow1 from "@/assets/onboarding/glow-1.svg";
+import glow2 from "@/assets/onboarding/glow-2.svg";
+import glow3 from "@/assets/onboarding/glow-3.svg";
+import glow5 from "@/assets/onboarding/glow-5.svg";
 
 interface IntroStepProps {
   onStart: () => void;
@@ -90,7 +90,7 @@ function IntroStep({ onStart }: IntroStepProps) {
         />
       ))}
 
-      <div className="relative mt-auto flex flex-col gap-3 px-5">
+      <div className="onboarding-intro-copy relative mt-auto flex flex-col gap-3 px-5">
         <h1 className="font-display text-onboarding-title text-[2.5rem] leading-[1.4] font-medium tracking-tight whitespace-pre-line">
           {t("intro.title")}
         </h1>
@@ -102,7 +102,7 @@ function IntroStep({ onStart }: IntroStepProps) {
       <button
         type="button"
         onClick={onStart}
-        className="text-onboarding-title text-body bg-surface-soft relative mx-5 mt-11 mb-15.5 h-15.5 rounded-full font-semibold"
+        className="onboarding-intro-button text-onboarding-title text-body bg-surface-soft relative mx-5 mt-11 mb-15.5 h-15.5 rounded-full font-semibold"
       >
         {t("intro.start")}
       </button>

@@ -2,7 +2,7 @@ import { DayPicker, getDefaultClassNames } from "@daypicker/react";
 import { enUS, ja, ko, zhCN } from "@daypicker/react/locale";
 
 import type { AvailableConsultationDate } from "@/types/consultationReservation.type";
-import type { SupportedLocale } from "@/types/preferences";
+import type { SupportedLocale } from "@/types/preferences.type";
 import { cn } from "@/utils/cn";
 import { parseCalendarDate } from "@/utils/dateTime";
 
@@ -96,7 +96,7 @@ export default function ConsultationCalendar({
         day_button:
           "flex h-14 w-[50px] items-center justify-center rounded-[20px] bg-transparent font-normal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-inset",
         selected:
-          "[&>button]:bg-[radial-gradient(circle_at_center,#9D84F3_24%,#B8A7F3_62%,#D3CAF4_100%)] [&>button]:font-medium [&>button]:text-neutral-white",
+          "[&>button]:bg-[radial-gradient(ellipse_70.48%_50%_at_center,#574595_0%,#7962D5_100%)] [&>button]:font-semibold [&>button]:text-[#FDFDFF]",
         disabled: "text-calendar-text pointer-events-none opacity-30",
         outside: "opacity-30",
       }}

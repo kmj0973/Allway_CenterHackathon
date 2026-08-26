@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { createConsultationSummary } from "@/apis/consultation/consultation.api";
+import { createConsultationSummary } from "@/apis/consultation/summary.api";
 import type { CreateConsultationSummaryRequest } from "@/types/consultation.type";
 import { consultationSummaryQueryKey } from "@/pages/consultation-summary/utils/consultationSummary";
 

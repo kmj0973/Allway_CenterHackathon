@@ -1,5 +1,6 @@
 export interface AftercareHomeResponse {
   caseId: number;
+  patientName: string;
   aftercareProgress: {
     elapsedDays: number;
     totalCareDays: number;

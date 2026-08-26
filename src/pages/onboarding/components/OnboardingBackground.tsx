@@ -1,11 +1,11 @@
-import bgStripe from "@/assets/splash/bg-stripe.png";
-import glow1 from "@/assets/splash/glow-1.svg";
-import glow2 from "@/assets/splash/glow-2.svg";
-import glow3 from "@/assets/splash/glow-3.svg";
-import glow4 from "@/assets/splash/glow-4.svg";
-import glow5 from "@/assets/splash/glow-5.svg";
-import glow6 from "@/assets/splash/glow-6.svg";
-import glow8 from "@/assets/splash/glow-8.svg";
+import bgStripe from "@/assets/onboarding/bg-stripe.png";
+import glow1 from "@/assets/onboarding/glow-1.svg";
+import glow2 from "@/assets/onboarding/glow-2.svg";
+import glow3 from "@/assets/onboarding/glow-3.svg";
+import glow4 from "@/assets/onboarding/glow-4.svg";
+import glow5 from "@/assets/onboarding/glow-5.svg";
+import glow6 from "@/assets/onboarding/glow-6.svg";
+import glow8 from "@/assets/onboarding/glow-8.svg";
 
 // 피그마 245:4494(언어 선택 화면) 기준, 393x852 프레임 좌표.
 // 각 글로우는 wrapper 박스가 아니라 inset(-N%)만큼 부풀려진 실제 블러 크기를 써야 한다.

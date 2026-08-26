@@ -1,4 +1,4 @@
-import { getSttAgentStatus } from "@/apis/consultation/consultation.api";
+import { getSttAgentStatus } from "@/apis/consultation/room.api";
 import { useQuery } from "@tanstack/react-query";
 
 export const sttAgentStatusQueryKey = (appointmentId: number) =>

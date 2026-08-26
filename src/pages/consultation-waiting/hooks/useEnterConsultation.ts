@@ -5,10 +5,8 @@ import axios from "axios";
 import { useJoinConsultation } from "./useMutation/useJoinConsultation";
 import { useConsultationStore } from "@/stores/useConsultationStore";
 import { getJoinErrorMessage } from "@/utils/getJoinErrorMessage";
-import type {
-  ApiErrorResponse,
-  ParticipantRole,
-} from "@/types/consultation.type";
+import type { ApiErrorResponse } from "@/types/api.type";
+import type { ParticipantRole } from "@/types/consultation.type";
 import i18n from "@/i18n";
 
 interface UseEnterConsultationParams {

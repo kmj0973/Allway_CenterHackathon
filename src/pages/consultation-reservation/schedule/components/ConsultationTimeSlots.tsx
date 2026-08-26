@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 
 import type { ConsultationReservationSlot } from "@/types/consultationReservation.type";
-import type { SupportedLocale } from "@/types/preferences";
+import type { SupportedLocale } from "@/types/preferences.type";
 import { cn } from "@/utils/cn";
 import { formatAppointmentTime, formatTimeZoneOffset } from "@/utils/dateTime";
 import type { ConsultationSlotGroup } from "@/utils/groupConsultationSlots";
@@ -66,8 +66,8 @@ function ConsultationTimeSlots({
                     !slot.available
                       ? "cursor-not-allowed border-transparent bg-action-disabled text-[#9795A0]"
                       : isSelected
-                      ? "border-action-secondary-text bg-action-secondary-text font-medium text-action-primary-text"
-                      : "border-calendar-control-border bg-transparent font-normal text-calendar-text",
+                        ? "border-action-secondary-text bg-action-secondary-text font-medium text-action-primary-text"
+                        : "border-calendar-control-border bg-transparent font-normal text-calendar-text",
                   )}
                 >
                   <span>

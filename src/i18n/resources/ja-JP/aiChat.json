@@ -10,5 +10,8 @@
   "photo": "写真",
   "send": "送信",
   "stop": "回答を中止",
-  "attachedImage": "添付した写真"
+  "attachedImage": "添付した写真",
+  "openImage": "添付写真を拡大表示",
+  "closeImage": "拡大写真を閉じる",
+  "sendError": "メッセージを送信できませんでした。入力内容と写真を復元しました。もう一度お試しください。"
 }

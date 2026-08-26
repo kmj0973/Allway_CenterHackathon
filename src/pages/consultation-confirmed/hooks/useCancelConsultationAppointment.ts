@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { cancelConsultationAppointment } from "@/apis/consultation/consultationReservation.api";
+import { cancelConsultationAppointment } from "@/apis/consultation/appointment.api";
 import type { CancelConsultationAppointmentRequest } from "@/types/consultationReservation.type";
 
 export function useCancelConsultationAppointment() {

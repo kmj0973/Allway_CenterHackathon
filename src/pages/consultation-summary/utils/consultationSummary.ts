@@ -1,5 +1,5 @@
 import type { SummaryRequestLanguage } from "@/types/consultation.type";
-import type { SupportedLocale } from "@/types/preferences";
+import type { SupportedLocale } from "@/types/preferences.type";
 
 export function toSummaryRequestLanguage(
   locale: SupportedLocale,

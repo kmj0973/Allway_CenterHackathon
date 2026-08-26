@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getConsultationHistory } from "@/apis/consultation/consultationReservation.api";
+import { getConsultationHistory } from "@/apis/consultation/history.api";
 
 export const consultationHistoryQueryKey = ["consultation-history"] as const;
 

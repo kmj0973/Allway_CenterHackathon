@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import {
   getPreconsultSubmission,
   getPreconsultSubmissionFile,
-} from "@/apis/consultation/consultationReservation.api";
+} from "@/apis/consultation/preconsultation.api";
 
 export function usePreconsultSubmission(appointmentId: number) {
   return useQuery({

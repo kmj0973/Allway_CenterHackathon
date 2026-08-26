@@ -4,10 +4,10 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
-import { getAftercareHome } from "@/apis/patient";
+import { getAftercareHome } from "@/apis/aftercare.api";
 import ConsultationFooter from "@/components/Footer/ConsultationFooter";
 import { useConsultationReservationStore } from "@/stores/useConsultationReservationStore";
-import type { ApiErrorResponse } from "@/types/consultation.type";
+import type { ApiErrorResponse } from "@/types/api.type";
 import type {
   SymptomCategory,
   SymptomType,

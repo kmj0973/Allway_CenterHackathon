@@ -10,5 +10,8 @@
   "photo": "Photo",
   "send": "Send",
   "stop": "Stop responding",
-  "attachedImage": "Attached photo"
+  "attachedImage": "Attached photo",
+  "openImage": "View attached photo",
+  "closeImage": "Close enlarged photo",
+  "sendError": "We couldn't send your message. Your text and photo have been restored; please try again."
 }

@@ -1,5 +1,6 @@
 import type { ConsultationAttachment } from "@/types/consultationReservation.type";
 import { useTranslation } from "react-i18next";
+import xIcon from "@/assets/icons/consultation/x.svg";
 
 interface PhotoPreviewProps {
   attachment: ConsultationAttachment;
@@ -33,9 +34,9 @@ function PhotoPreview({ attachment, onRemove }: PhotoPreviewProps) {
         type="button"
         aria-label={t("preConsultation.photos.remove", { name: file.name })}
         onClick={onRemove}
-        className="absolute right-1.5 top-1.5 flex size-6 items-center justify-center rounded-full bg-neutral-black/60 text-lg leading-none text-neutral-white"
+        className="absolute right-1.5 top-1.5 flex size-6 items-center justify-center rounded-full  text-lg leading-none"
       >
-        ×
+        <img src={xIcon} alt="이미지 제거" />
       </button>
     </div>
   );

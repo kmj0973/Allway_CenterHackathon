@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 
 import VerticalWheelPicker from "@/components/WheelPicker/VerticalWheelPicker";
 import { LANGUAGE_OPTIONS } from "@/constants/settings";
-import type { SupportedLocale } from "@/types/preferences";
+import type { SupportedLocale } from "@/types/preferences.type";
 
 interface LanguageStepProps {
   value: SupportedLocale;

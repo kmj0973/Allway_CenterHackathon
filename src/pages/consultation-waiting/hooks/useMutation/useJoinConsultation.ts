@@ -1,4 +1,4 @@
-import { joinConsultation } from "@/apis/consultation/consultation.api";
+import { joinConsultation } from "@/apis/consultation/room.api";
 import { useMutation } from "@tanstack/react-query";
 
 export const useJoinConsultation = () => {

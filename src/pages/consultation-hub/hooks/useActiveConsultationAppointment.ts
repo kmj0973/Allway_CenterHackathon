@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getActiveConsultationAppointment } from "@/apis/consultation/consultationReservation.api";
+import { getActiveConsultationAppointment } from "@/apis/consultation/appointment.api";
 
 export const activeConsultationAppointmentQueryKey = (caseId: number | null) =>
   ["active-consultation-appointment", caseId] as const;

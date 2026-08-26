@@ -7,7 +7,7 @@ import ConsultationFooter from "@/components/Footer/ConsultationFooter";
 import ConsultationHeader from "@/components/Header/ConsultationHeader";
 import { useConsultationReservationStore } from "@/stores/useConsultationReservationStore";
 import { usePreferencesStore } from "@/stores/usePreferencesStore";
-import type { ApiErrorResponse } from "@/types/consultation.type";
+import type { ApiErrorResponse } from "@/types/api.type";
 import type { ConsultationCancelReason } from "@/types/consultationReservation.type";
 import {
   formatConfirmedDateTime,

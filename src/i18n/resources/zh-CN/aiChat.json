@@ -10,5 +10,8 @@
   "photo": "照片",
   "send": "发送",
   "stop": "停止回答",
-  "attachedImage": "已添加的照片"
+  "attachedImage": "已添加的照片",
+  "openImage": "查看大图",
+  "closeImage": "关闭大图",
+  "sendError": "消息发送失败。文字和照片已恢复，请重试。"
 }

@@ -2,8 +2,9 @@ import { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 
-import { getChatRooms } from "@/apis/chat";
-import logoDark from "@/assets/logo-dark.svg";
+import { getChatRooms } from "@/apis/chat.api";
+import logoMuted from "@/assets/brand/logo-muted.svg";
+import wordmarkMuted from "@/assets/brand/wordmark-muted.svg";
 import { useChatStore } from "@/stores/useChatStore";
 import type { ChatRoomSummary } from "@/types/aiChat.type";
 import { cn } from "@/utils/cn";
@@ -17,10 +18,7 @@ const DAY_MS = 24 * 60 * 60 * 1000;
 
 type GroupId = "recent" | "older";
 
-/*
-  서버에서 채팅방을 최근 대화순으로 받고 화면에 필요한 "최근 / 이전" 구분은 여기서 나눈다.
-  자정이 아니라 마지막 대화 시점으로부터 7일이 지났는지로 가른다.
-*/
+// 마지막 대화가 7일 이내인지에 따라 채팅방을 나눈다.
 function groupRooms(rooms: ChatRoomSummary[]) {
   const now = Date.now();
 
@@ -45,6 +43,7 @@ function groupRooms(rooms: ChatRoomSummary[]) {
 function HistoryDrawer({ isOpen, onClose }: HistoryDrawerProps) {
   const { t } = useTranslation("settings");
 
+  const roomId = useChatStore((state) => state.roomId);
   const openRoom = useChatStore((state) => state.openRoom);
   const startNewChat = useChatStore((state) => state.startNewChat);
 
@@ -107,7 +106,7 @@ function HistoryDrawer({ isOpen, onClose }: HistoryDrawerProps) {
       <aside
         aria-label={t("history.title")}
         className={cn(
-          "bg-history absolute inset-y-0 left-0 w-[85%] max-w-90 overflow-y-auto",
+          "bg-care-bg absolute inset-y-0 left-0 w-[85%] max-w-90 overflow-y-auto",
           "transition-transform duration-300 ease-out",
           isOpen ? "translate-x-0" : "-translate-x-full",
         )}
@@ -122,10 +121,8 @@ function HistoryDrawer({ isOpen, onClose }: HistoryDrawerProps) {
             }}
             className="flex items-center gap-3"
           >
-            <img src={logoDark} alt="" aria-hidden className="size-7" />
-            <span className="text-heading font-semibold text-text-01">
-              allway
-            </span>
+            <img src={logoMuted} alt="" aria-hidden className="size-7" />
+            <img src={wordmarkMuted} alt="allway" className="h-5.5 w-auto" />
           </button>
         </header>
 
@@ -135,17 +132,18 @@ function HistoryDrawer({ isOpen, onClose }: HistoryDrawerProps) {
               {t(`history.${group.id}`)}
             </h2>
 
-            <ul className="mt-2">
-              {group.rooms.map((room, index) => (
+            <ul className="mt-2.5">
+              {group.rooms.map((room) => (
                 <li key={room.roomId}>
                   <button
                     type="button"
                     tabIndex={isOpen ? 0 : -1}
+                    aria-current={room.roomId === roomId ? "page" : undefined}
                     onClick={() => handleSelect(room.roomId)}
                     className={cn(
-                      "text-body flex h-12 w-full items-center rounded-xl px-3 text-left text-text-history",
+                      "text-body flex h-15 w-full items-center rounded-[20px] px-3 text-left text-text-history",
                       // 가장 최근 질문만 강조된다
-                      group.id === "recent" && index === 0 && "bg-primary-10",
+                      room.roomId === roomId && "bg-primary-10",
                     )}
                   >
                     <span className="truncate">{room.roomTitle}</span>

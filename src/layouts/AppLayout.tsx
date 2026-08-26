@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, ScrollRestoration } from "react-router-dom";
 
 function AppLayout() {
   return (
@@ -6,6 +6,7 @@ function AppLayout() {
       <div className="mx-auto min-h-dvh w-full max-w-app bg-white">
         <Outlet />
       </div>
+      <ScrollRestoration />
     </div>
   );
 }

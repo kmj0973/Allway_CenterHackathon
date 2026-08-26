@@ -6,6 +6,7 @@
     "total": "{{total}}일 중"
   },
   "greeting": "반가워요!",
+  "greetingWithName": "반가워요, {{name}}님!",
   "disclaimer": "의료적 진단이 아닌 참고 안내입니다. 위험 증상은 즉시 병원에 문의하세요.",
   "chat": {
     "placeholder": "오늘 상태는 어때요?",
@@ -15,7 +16,7 @@
     "send": "보내기"
   },
   "aftercare": {
-    "badge": "{{day}}일 중",
+    "badge": "{{day}}일차",
     "title": "나의 사후관리"
   },
   "consultation": {
@@ -32,7 +33,7 @@
     "skip": "건너뛰기",
     "history": {
       "title": "채팅 내역을 확인해보세요",
-      "description": "오른쪽으로 스와이프 하면\n채팅 내역이 나타나요"
+      "description": "이전 상담 내용을 다시 확인하고,\n필요한 정보를 빠르게 찾아볼 수 있어요."
     },
     "chat": {
       "title": "회복 중 궁금한 점을 물어보세요",
@@ -44,7 +45,7 @@
     },
     "consultation": {
       "title": "의료진과 화상으로 상담해요",
-      "description": "귀국 후에도 예약을 통해 의료진과 화상 상담을 받을 수 있어요."
+      "description": "귀국 후에도 예약을 통해 화상 상담을 받을 수 있어요."
     }
   }
 }

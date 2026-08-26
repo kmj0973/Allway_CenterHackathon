@@ -1,16 +1,18 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { updatePatientSettings } from "@/apis/patient";
-import check from "@/assets/check.svg";
-import PageHeader from "@/components/PageHeader/PageHeader";
+import { updatePatientSettings } from "@/apis/patient.api";
+import check from "@/assets/settings/language/check.svg";
 import { LANGUAGE_OPTIONS, LOCALE_TO_API_LANGUAGE } from "@/constants/settings";
 import { ACCESS_TOKEN_STORAGE_KEY } from "@/constants/storageKey";
 import { usePreferencesStore } from "@/stores/usePreferencesStore";
-import type { SupportedLocale } from "@/types/preferences";
+import type { SupportedLocale } from "@/types/preferences.type";
+import ConsultationHeader from "@/components/Header/ConsultationHeader";
+import { useNavigate } from "react-router-dom";
 
 function LanguageSettingsPage() {
   const { t } = useTranslation("settings");
+  const navigate = useNavigate();
 
   const locale = usePreferencesStore((state) => state.locale);
   const setLocale = usePreferencesStore((state) => state.setLocale);
@@ -42,9 +44,12 @@ function LanguageSettingsPage() {
   };
 
   return (
-    <div className="min-h-dvh bg-language-bg">
-      <PageHeader title={t("language.title")} backLabel={t("back")} />
-
+    <div className="min-h-dvh bg-care-bg">
+      <ConsultationHeader
+        title={t("language.title")}
+        onBack={() => navigate(-1)}
+        className="bg-care-bg"
+      />
       {error && (
         <p className="text-caption px-5 pb-2 text-red-500">
           {t("language.error")}
@@ -62,7 +67,7 @@ function LanguageSettingsPage() {
                 aria-current={isSelected}
                 disabled={pendingLocale !== null}
                 onClick={() => void handleSelect(option.value)}
-                className="border-language-divider bg-language-bg flex h-15.5 w-full items-center justify-between border-t px-5 disabled:opacity-60"
+                className="border-language-divider bg-care-bg flex h-15.5 w-full items-center justify-between border-t px-5 disabled:opacity-60"
               >
                 <span className="flex items-center gap-3">
                   <img

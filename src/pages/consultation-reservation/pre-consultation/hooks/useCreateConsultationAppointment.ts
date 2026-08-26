@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { createConsultationAppointment } from "@/apis/consultation/consultationReservation.api";
+import { createConsultationAppointment } from "@/apis/consultation/appointment.api";
 import { activeConsultationAppointmentQueryKey } from "@/pages/consultation-hub/hooks/useActiveConsultationAppointment";
 import type { CreateConsultationAppointmentRequest } from "@/types/consultationReservation.type";
 

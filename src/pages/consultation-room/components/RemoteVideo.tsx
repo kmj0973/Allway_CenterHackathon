@@ -1,17 +1,21 @@
 import { useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import type { IRemoteVideoTrack } from "agora-rtc-sdk-ng";
 
 interface RemoteVideoProps {
   track: IRemoteVideoTrack | null;
+  cameraOff: boolean;
   isConnecting: boolean;
   errorMessage: string;
 }
 
 function RemoteVideo({
   track,
+  cameraOff,
   isConnecting,
   errorMessage,
 }: RemoteVideoProps) {
+  const { t } = useTranslation("consultationWaiting");
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -41,7 +45,9 @@ function RemoteVideo({
             role={errorMessage ? "alert" : "status"}
             className="text-center text-sm leading-6 text-white/80"
           >
-            {message}
+            {cameraOff && !errorMessage && !isConnecting
+              ? t("preview.cameraOff")
+              : message}
           </p>
         </div>
       )}

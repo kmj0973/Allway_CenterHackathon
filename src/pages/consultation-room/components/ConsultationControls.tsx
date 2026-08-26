@@ -79,7 +79,7 @@ function ConsultationControls({
         event.stopPropagation();
         if (event.target === event.currentTarget) onBackgroundClick?.();
       }}
-      className="flex items-center justify-center gap-2 rounded-[25px] bg-[#1A1A1A] p-3 sm:gap-2.5 sm:p-[18px]"
+      className="flex items-center justify-center gap-2 rounded-[100px] bg-[#1A1A1A] p-3 sm:gap-2.5 sm:p-[18px]"
     >
       <ControlButton
         label={cameraOn ? "카메라 끄기" : "카메라 켜기"}

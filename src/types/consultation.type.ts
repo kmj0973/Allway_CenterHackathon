@@ -112,7 +112,9 @@ export interface CreateConsultationSummaryRequest {
 
 export interface SummaryInstruction {
   instructionId: number;
+  title: string;
   content: string;
+  icon?: 1 | 2 | 3 | 4 | 5 | 6 | 7;
   sortOrder: number;
   patientCompleted: boolean;
   completedAt: string | null;
@@ -147,22 +149,4 @@ export interface PreconsultSubmissionResponse {
   symptomCategories?: string[];
   symptomNote: string | null;
   files: PreconsultSubmissionFile[];
-}
-
-export interface ApiResponse<T> {
-  isSuccess: boolean;
-  timestamp: string;
-  code: string;
-  httpStatus: number;
-  message: string;
-  data: T;
-}
-
-export interface ApiErrorResponse {
-  isSuccess: false;
-  timestamp: string;
-  code: string;
-  httpStatus: number;
-  message: string;
-  data: null;
 }

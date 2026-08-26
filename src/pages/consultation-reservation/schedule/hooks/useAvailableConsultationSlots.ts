@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getAvailableConsultationSlots } from "@/apis/consultation/consultationReservation.api";
+import { getAvailableConsultationSlots } from "@/apis/consultation/appointment.api";
 import type { LocalDateString } from "@/types/consultationReservation.type";
 
 export const availableConsultationSlotsQueryKey = (

@@ -6,6 +6,7 @@
     "total": "共{{total}}天"
   },
   "greeting": "您好！",
+  "greetingWithName": "您好，\n{{name}}！",
   "disclaimer": "此为参考指引而非医疗诊断。如出现危险症状请立即联系医院。",
   "chat": {
     "placeholder": "今天感觉怎么样？",
@@ -32,7 +33,7 @@
     "skip": "跳过",
     "history": {
       "title": "查看聊天记录",
-      "description": "向右滑动即可\n查看聊天记录"
+      "description": "重新查看以往的咨询内容，\n快速找到您需要的信息。"
     },
     "chat": {
       "title": "有疑问随时提问",
@@ -44,7 +45,7 @@
     },
     "consultation": {
       "title": "与医生视频咨询",
-      "description": "回国后也可通过预约与医生进行视频咨询。"
+      "description": "回国后也可通过预约进行视频咨询。"
     }
   }
 }

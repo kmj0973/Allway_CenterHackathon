@@ -3,9 +3,9 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
-import { getEmergencyMedicalReport } from "@/apis/patient";
-import gradientTop from "@/assets/home-gradient-top.png";
-import xIcon from "@/assets/x.svg";
+import { getEmergencyMedicalReport } from "@/apis/aftercare.api";
+import xIcon from "@/assets/aftercare/x.svg";
+import gradientTop from "@/assets/shared/home-gradient-top.png";
 
 // 서버가 여러 항목을 줄바꿈 하나로 이어 붙여 내려준다
 function splitLines(value: string | undefined): string[] {

@@ -1,10 +1,9 @@
-// ai 챗봇
+import type { ApiResponse } from "@/types/api.type";
 import type {
   ChatRoomDetailResponse,
   ChatRoomSummary,
   PostSymptomMessageRequest,
 } from "@/types/aiChat.type";
-import type { ApiResponse } from "@/types/consultation.type";
 
 import axiosInstance from "./axiosInstance";
 
@@ -28,8 +27,7 @@ export async function getChatRoomMessages(roomId: number) {
 
 /*
   AI 챗봇에 증상을 문의한다. multipart/form-data로 전송해야 해서
-  axiosInstance 기본 Content-Type(application/json)을 이 요청만 무효화한다
-  — undefined로 넘기면 브라우저가 FormData의 boundary를 포함해 직접 채운다.
+  axiosInstance 기본 Content-Type(application/json)을 이 요청만 무효화한다.
   roomId를 안 보내면 서버가 새 채팅방을 만든다.
 */
 export async function postSymptomMessage({
@@ -49,4 +47,13 @@ export async function postSymptomMessage({
   });
 
   return data.data;
+}
+
+/** Bearer 인증이 필요한 채팅 첨부 이미지를 Blob으로 가져온다. */
+export async function getChatImage(imageUrl: string) {
+  const { data } = await axiosInstance.get<Blob>(imageUrl, {
+    responseType: "blob",
+  });
+
+  return data;
 }

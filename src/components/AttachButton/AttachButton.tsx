@@ -1,7 +1,7 @@
 import { useRef, useState, type ChangeEvent } from "react";
 
-import camera from "@/assets/camera.svg";
-import image from "@/assets/image.svg";
+import camera from "@/assets/home/camera.svg";
+import image from "@/assets/home/image.svg";
 
 interface AttachButtonProps {
   attachLabel: string;

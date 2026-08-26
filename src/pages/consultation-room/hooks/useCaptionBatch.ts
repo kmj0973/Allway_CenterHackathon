@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import axios from "axios";
 
-import { saveConsultationCaptionBatch } from "@/apis/consultation/consultation.api";
+import { saveConsultationCaptionBatch } from "@/apis/consultation/room.api";
 import type { ConsultationCaption } from "@/types/consultation.type";
 
 const BATCH_SIZE = 5;

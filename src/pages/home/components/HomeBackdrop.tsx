@@ -1,7 +1,7 @@
-import ellipse441 from "@/assets/glow-ellipse-441.svg";
-import ellipse444 from "@/assets/glow-ellipse-444.svg";
-import gradientBottom from "@/assets/home-gradient-bottom.png";
-import gradientTop from "@/assets/home-gradient-top.png";
+import ellipse441 from "@/assets/home/glow-ellipse-441.svg";
+import ellipse444 from "@/assets/home/glow-ellipse-444.svg";
+import gradientBottom from "@/assets/home/home-gradient-bottom.png";
+import gradientTop from "@/assets/shared/home-gradient-top.png";
 
 const STATUS_BAR_HEIGHT = 60;
 

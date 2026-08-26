@@ -1,6 +1,9 @@
 import { TIME_ZONE_STORAGE_KEY } from "@/constants/storageKey";
 import type { LocalDateString } from "@/types/consultationReservation.type";
-import type { SupportedLocale, UserPreferences } from "@/types/preferences";
+import type {
+  SupportedLocale,
+  UserPreferences,
+} from "@/types/preferences.type";
 
 //현재 브라우저/ 실행 환경의 기본 타임존을 불러온ㄷ
 export function detectTimeZone(): string {
@@ -111,6 +114,15 @@ export function formatShortDate(
   }).format(toDate(value));
 }
 
+export function formatDottedShortDate(value: DateValue): string {
+  const date = toDate(value);
+  const year = String(date.getFullYear()).slice(-2);
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}.${month}.${day}`;
+}
+
 /*
 요일만 짧게 포맷하는 함수
 ex) "목", "Thu"
@@ -192,9 +204,7 @@ export function formatConfirmedDateTime(
   const day = getPart("day");
   const weekday = getPart("weekday");
   const dateText =
-    locale === "en-US"
-      ? `${month}.${day}.${year}`
-      : `${year}.${month}.${day}`;
+    locale === "en-US" ? `${month}.${day}.${year}` : `${year}.${month}.${day}`;
   const timeText = new Intl.DateTimeFormat(locale, {
     timeZone,
     hour: "numeric",
@@ -323,13 +333,17 @@ export function getTimeZoneCity(timeZone: string): string {
 }
 
 // UTC 대비 분 단위 오프셋. "GMT+9" → 540, "GMT-3:30" → -210
-function getTimeZoneOffsetMinutes(timeZone: string, value: DateValue = new Date()): number {
+function getTimeZoneOffsetMinutes(
+  timeZone: string,
+  value: DateValue = new Date(),
+): number {
   const parts = new Intl.DateTimeFormat("en-US", {
     timeZone,
     timeZoneName: "shortOffset",
   }).formatToParts(toDate(value));
 
-  const raw = parts.find((part) => part.type === "timeZoneName")?.value ?? "GMT";
+  const raw =
+    parts.find((part) => part.type === "timeZoneName")?.value ?? "GMT";
   const match = /GMT([+-]\d+)(?::(\d+))?/.exec(raw);
   if (!match) return 0;
 
@@ -369,7 +383,10 @@ export function getCityTimeZoneOptions(): CityTimeZoneOption[] {
         offsetLabel,
       };
     })
-    .sort((a, b) => a.offsetMinutes - b.offsetMinutes || a.city.localeCompare(b.city));
+    .sort(
+      (a, b) =>
+        a.offsetMinutes - b.offsetMinutes || a.city.localeCompare(b.city),
+    );
 }
 
 // timeZone에 맞는 Date 객체를 반환

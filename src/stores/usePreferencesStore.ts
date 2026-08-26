@@ -4,7 +4,7 @@ import {
 } from "@/constants/storageKey";
 import i18n from "@/i18n";
 import { getInitialLocale, resolveSupportedLocale } from "@/i18n/language";
-import type { SupportedLocale } from "@/types/preferences";
+import type { SupportedLocale } from "@/types/preferences.type";
 import {
   detectTimeZone,
   getInitialTimeZone,

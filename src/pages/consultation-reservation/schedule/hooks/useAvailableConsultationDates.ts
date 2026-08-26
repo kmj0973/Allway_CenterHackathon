@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getAvailableConsultationDates } from "@/apis/consultation/consultationReservation.api";
+import { getAvailableConsultationDates } from "@/apis/consultation/appointment.api";
 
 export const availableConsultationDatesQueryKey = (
   year: number,

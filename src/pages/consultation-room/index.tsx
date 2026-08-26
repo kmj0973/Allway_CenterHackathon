@@ -24,7 +24,7 @@ import { useSttAgentStatus } from "./hooks/useSttAgentStatus";
 import { useCaptionBatch } from "./hooks/useCaptionBatch";
 import { useEndConsultation } from "./hooks/useEndConsultation";
 import { useCreateConsultationSummary } from "./hooks/useCreateConsultationSummary";
-import type { ApiErrorResponse } from "@/types/consultation.type";
+import type { ApiErrorResponse } from "@/types/api.type";
 import { usePreferencesStore } from "@/stores/usePreferencesStore";
 import { toSummaryRequestLanguage } from "@/pages/consultation-summary/utils/consultationSummary";
 
@@ -70,6 +70,7 @@ function ConsultationRoomPage() {
   const {
     localVideoTrack,
     remoteVideoTrack,
+    remoteCameraOff,
     microphoneOn,
     cameraOn,
     speakerOn,
@@ -102,6 +103,10 @@ function ConsultationRoomPage() {
 
   useEffect(() => {
     if (!roomInfo) {
+      // 상담 종료 과정에서는 roomInfo를 비운 뒤 요약/상담 허브로 이동한다.
+      // 이때 대기실 리다이렉트가 종료 후 라우팅을 가로채지 않도록 한다.
+      if (endProcessingRef.current) return;
+
       navigate(waitingPath, { replace: true });
       return;
     }
@@ -257,6 +262,7 @@ function ConsultationRoomPage() {
     >
       <RemoteVideo
         track={remoteVideoTrack}
+        cameraOff={remoteCameraOff}
         isConnecting={
           connectionState === "IDLE" || connectionState === "CONNECTING"
         }
