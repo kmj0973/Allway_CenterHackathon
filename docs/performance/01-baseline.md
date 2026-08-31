@@ -18,6 +18,13 @@
 
 ---
 
+> ⚠️ **Lighthouse 수치 신뢰도 주의 (2026-09-01 추가)**
+> 아래 Lighthouse 값은 **단일 측정**입니다. 이후 동일 빌드를 3회 측정한 결과
+> Performance 35~44, TBT 625~1,616 ms 의 편차가 관측됐습니다.
+> **Lighthouse 점수는 개선 효과의 근거로 쓰지 않습니다.** 자세한 내용은
+> [02-icon-optimization.md](./02-icon-optimization.md) 참고.
+> 빌드 산출물 크기(3장)는 결정론적이므로 그대로 기준값으로 유효합니다.
+
 ## 1. Lighthouse 점수
 
 | 카테고리 | 점수 |
