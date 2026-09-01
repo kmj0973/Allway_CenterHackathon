@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import bgStripe from "@/assets/onboarding/bg-stripe.png";
+import bgStripe from "@/assets/onboarding/bg-stripe.webp";
 import glow1 from "@/assets/onboarding/glow-1.svg";
 import glow2 from "@/assets/onboarding/glow-2.svg";
 import glow3 from "@/assets/onboarding/glow-3.svg";
