@@ -36,6 +36,17 @@ export default defineConfig(({ mode }) => {
 
       workbox: {
         maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
+
+        /*
+          화상 상담 청크는 Agora SDK 때문에 1.5MB가 넘는데,
+          상담을 하지 않는 사용자에게는 필요 없다.
+          프리캐시에서 빼서 첫 방문 전송량을 줄이고,
+          대기실 화면에서 미리 내려받아 입장 지연을 막는다.
+          (src/pages/consultation-waiting/index.tsx 참고)
+
+          개발용 MSW 워커도 프로덕션 프리캐시에 들어갈 이유가 없다.
+        */
+        globIgnores: ["**/consultation-room-*.js", "**/mockServiceWorker.js"],
       },
 
       includeAssets: ["favicon.ico", "apple-touch-icon.png"],
