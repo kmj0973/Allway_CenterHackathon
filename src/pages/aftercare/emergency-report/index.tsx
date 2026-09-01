@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { getEmergencyMedicalReport } from "@/apis/aftercare.api";
 import xIcon from "@/assets/aftercare/x.svg";
-import { HOME_GRADIENT_TOP } from "@/constants/backdropGradient";
+import gradientTop from "@/assets/shared/home-gradient-top.webp";
 
 // 서버가 여러 항목을 줄바꿈 하나로 이어 붙여 내려준다
 function splitLines(value: string | undefined): string[] {
@@ -76,15 +76,12 @@ function EmergencyReportPage() {
   return (
     <div className="relative min-h-dvh overflow-hidden bg-[#fcfcfc] pb-12">
       {/* 헤더와 제목 뒤에 흐리게 번지는 장식. 사후관리 화면과 같은 그라데이션을 재사용한다 */}
-      <div
+      <img
         aria-hidden
+        src={gradientTop}
+        alt=""
         className="pointer-events-none absolute left-1/2 max-w-none -translate-x-1/2"
-        style={{
-          top: -202,
-          width: 650,
-          height: 650,
-          background: HOME_GRADIENT_TOP,
-        }}
+        style={{ top: -202, width: 650, height: 650 }}
       />
 
       <div className="relative flex justify-end px-5 pt-4.5">
