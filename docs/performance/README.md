@@ -9,6 +9,7 @@ allway 프론트엔드의 성능·품질 개선 과정을 기록합니다.
 | --- | --- |
 | [01-baseline.md](./01-baseline.md) | **개선 전 기준값** (2026-08-31). 모든 비교의 기준 |
 | [02-icon-optimization.md](./02-icon-optimization.md) | ai-generate 아이콘 최적화 (2026-09-01). -99.84% |
+| [03-code-splitting.md](./03-code-splitting.md) | 화상 상담 라우트 코드 스플리팅 (2026-09-02). 초기 로드 JS -66% |
 
 ## 원칙
 
