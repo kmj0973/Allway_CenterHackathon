@@ -86,6 +86,37 @@ npm run dev
 [mocks] API 목 모드로 실행 중입니다. 캡처본 11건 (2026-08-31)
 ```
 
+### 데모 배포 (2026-09-04 추가)
+
+백엔드가 종료되어 실서버 배포는 화면만 뜨고 데이터가 오지 않습니다.
+포트폴리오에서 **동작하는 링크**를 보여주기 위해 목을 켠 데모를 따로 배포합니다.
+
+| 배포 | 플래그 | 데이터 | PWA |
+| --- | --- | --- | --- |
+| https://allway-demo.vercel.app | `VITE_USE_MOCK_API=true` | MSW 목 | ❌ 꺼짐 |
+| 프로덕션 | 미설정 | 실서버 | ✅ 켜짐 |
+
+Vercel 프로젝트 설정 > Environment Variables 에 `VITE_USE_MOCK_API=true` 를 넣으면 됩니다.
+
+#### 왜 데모에서는 PWA 를 끄는가
+
+MSW 워커(`mockServiceWorker.js`)와 Workbox 워커(`sw.js`)가 **둘 다 스코프 `/` 에 등록**됩니다.
+같은 스코프에는 서비스 워커가 하나만 남으므로 나중에 등록된 쪽이 앞의 것을 덮어씁니다.
+그대로 두면 목이 먹거나 캐시가 먹거나 둘 중 하나가 매 로드마다 뒤집힙니다.
+데모의 목적은 데이터가 보이는 것이므로 목을 우선하고, PWA 는 [`vite.config.ts`](../../vite.config.ts) 에서 제외합니다.
+
+#### 로컬에서 성능을 측정할 때 주의
+
+`.env.local` 에 `VITE_USE_MOCK_API=true` 가 남아 있으면 **`npm run build` 도 데모 빌드가 됩니다.**
+MSW 런타임(450 kB)이 초기 로드에 얹히고 PWA 산출물이 사라져 수치가 달라집니다.
+성능을 측정할 때는 플래그를 명시적으로 끄세요.
+
+```bash
+VITE_USE_MOCK_API=false npm run build
+```
+
+빌드 로그 끝에 `PWA v1.3.0 ... precache 9 entries` 가 보이면 프로덕션 빌드가 맞습니다.
+
 ### 응답 출처 (25개 엔드포인트 전부 처리됨)
 
 | 출처 | 개수 | 신뢰도 |
@@ -194,4 +225,12 @@ birthDate, phoneNumber, email, patientName, name
 | [`src/apis/axiosInstance.ts`](../../src/apis/axiosInstance.ts) | `VITE_RECORD_API=true` 일 때만 동적 import |
 | [`vite.config.ts`](../../vite.config.ts) | `VITE_API_PROXY_TARGET` 설정 시 `/api` 프록시 |
 
-프로덕션 번들에는 포함되지 않습니다 (`import.meta.env.DEV` 가드 + 동적 import).
+| [`src/main.tsx`](../../src/main.tsx) | `VITE_USE_MOCK_API=true` 일 때만 워커를 띄우고 렌더 |
+
+플래그가 꺼진 빌드에서는 조건이 상수 `false` 로 접혀 동적 import 가 통째로 제거됩니다.
+즉 목 코드와 픽스처는 프로덕션 번들에 **들어가지 않습니다.** 확인 방법:
+
+```bash
+VITE_USE_MOCK_API=false npm run build
+grep -rl "mockServiceWorker" dist/assets/*.js   # 결과가 없어야 정상
+```

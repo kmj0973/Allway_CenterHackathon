@@ -21,6 +21,13 @@ type Step = (typeof STEPS)[number];
 
 const DEFAULT_BIRTH_DATE: BirthDate = { year: 2000, month: 6, day: 6 };
 
+/*
+  목 모드에서는 백엔드 없이 MSW 가 응답하므로 인증 자체가 형식적이다.
+  매직링크 토큰 자리에 넣을 값이며, 어떤 값이든 결과는 같다.
+*/
+const USE_MOCK_API = import.meta.env.VITE_USE_MOCK_API === "true";
+const DEMO_ACCESS_TOKEN = "demo";
+
 // yyyy-MM-dd. API가 이 형식만 받음
 function formatBirthDate({ year, month, day }: BirthDate): string {
   return `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
@@ -54,19 +61,15 @@ function OnboardingPage() {
       return;
     }
 
-    /*
-      개발 중 백엔드 없이 화면을 확인할 수 있도록 둔 우회 경로.
-      생년월일을 2000-01-01로 두면 인증 API를 호출하지 않고 바로 홈으로 넘어간다.
-      배포 빌드(import.meta.env.DEV === false)에서는 동작 x
-    */
-    if (import.meta.env.DEV && formatBirthDate(birthDate) === "2000-01-01") {
-      navigate("/home");
-      return;
-    }
-
     // 매직링크의 query parameter로 전달된 원본 토큰
     const token = searchParams.get("token");
-    if (!token) {
+
+    /*
+      목 모드(데모 배포)에서는 매직링크 없이 들어오므로 토큰이 없다.
+      자리표시자를 보내면 MSW 핸들러가 생년월일과 무관하게 성공을 돌려준다.
+      실서버를 보는 빌드에서는 토큰 없이 진행할 수 없으므로 그대로 막는다.
+    */
+    if (!token && !USE_MOCK_API) {
       setVerifyError(t("verifyError"));
       return;
     }
@@ -76,7 +79,7 @@ function OnboardingPage() {
 
     try {
       const { accessToken } = await verifyAccessLink({
-        token,
+        token: token ?? DEMO_ACCESS_TOKEN,
         birthDate: formatBirthDate(birthDate),
         language: LOCALE_TO_API_LANGUAGE[locale],
         timezoneId: timeZone,

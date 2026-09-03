@@ -23,9 +23,14 @@ function render() {
   VITE_USE_MOCK_API=true 이면 API 목 워커를 먼저 띄운 뒤 렌더한다.
   워커가 준비되기 전에 첫 요청이 나가면 목이 적용되지 않으므로 순서가 중요하다.
 
-  동적 import라 프로덕션 번들에는 포함되지 않는다.
+  로컬 개발뿐 아니라 데모 배포(allway-demo.vercel.app)에서도 켠다.
+  백엔드 없이 전체 플로우를 보여주기 위한 빌드다.
+
+  플래그가 꺼진 빌드에서는 이 조건이 상수 false로 접혀
+  아래 동적 import 가 통째로 제거된다. 즉 목 코드와 픽스처는
+  프로덕션 번들에 들어가지 않는다.
 */
-if (import.meta.env.DEV && import.meta.env.VITE_USE_MOCK_API === "true") {
+if (import.meta.env.VITE_USE_MOCK_API === "true") {
   void import("@/mocks/browser")
     .then(({ startMockWorker }) => startMockWorker())
     .catch((error) => console.error("[mocks] 워커 시작 실패", error))

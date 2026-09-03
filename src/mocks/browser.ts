@@ -3,7 +3,7 @@ import { setupWorker } from "msw/browser";
 import { assertCapturedKeys, CAPTURED_AT, CAPTURED_KEYS } from "./fixtures";
 import { handlers, USED_CAPTURED_KEYS } from "./handlers";
 
-export const worker = setupWorker(...handlers);
+const worker = setupWorker(...handlers);
 
 export async function startMockWorker() {
   /* 키가 어긋나면 해당 요청만 조용히 실서버로 새므로 먼저 확인한다 */

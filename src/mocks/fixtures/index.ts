@@ -53,10 +53,6 @@ export function capturedBody(key: string) {
   return call.data;
 }
 
-export function hasCaptured(key: string) {
-  return key in capturedCalls;
-}
-
 /*
   핸들러가 참조하는 캡처 키가 실제로 존재하는지 시작 시점에 확인한다.
 
@@ -74,8 +70,6 @@ export function assertCapturedKeys(keys: readonly string[]) {
         `\n사용 가능한 키:\n${CAPTURED_KEYS.map((key) => `  - ${key}`).join("\n")}`,
     );
   }
-
-  return missing;
 }
 
 export const CAPTURED_KEYS = Object.keys(capturedCalls);

@@ -8,6 +8,16 @@ import path from "node:path";
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
 
+  /*
+    데모 배포(allway-demo.vercel.app)는 백엔드 없이 MSW 로 동작한다.
+
+    이때 PWA 는 끈다. MSW 워커(mockServiceWorker.js)와 Workbox 워커(sw.js)가
+    모두 스코프 "/" 에 등록되는데, 같은 스코프에는 서비스 워커가 하나만 남는다.
+    나중에 등록된 쪽이 앞의 것을 덮어써서 목이 먹거나 캐시가 먹거나 둘 중
+    하나가 매 로드마다 뒤집힌다. 데모 빌드에서는 목이 우선이다.
+  */
+  const useMockApi = env.VITE_USE_MOCK_API === "true";
+
   return {
   /*
     API 서버가 배포 도메인만 CORS 허용하므로 로컬에서는 직접 호출할 수 없다.
@@ -31,7 +41,7 @@ export default defineConfig(({ mode }) => {
   plugins: [
     react(),
     tailwindcss(),
-    VitePWA({
+    ...(useMockApi ? [] : [VitePWA({
       registerType: "prompt",
 
       workbox: {
@@ -72,7 +82,7 @@ export default defineConfig(({ mode }) => {
           },
         ],
       },
-    }),
+    })]),
   ],
   resolve: {
     alias: {
