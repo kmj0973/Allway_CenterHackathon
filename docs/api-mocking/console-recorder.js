@@ -10,7 +10,7 @@
     3. 화면을 실제로 사용 (예약 생성, 화상 상담, 사진 첨부 등)
     4. __fixtureStatus()  로 수집 현황 확인
     5. __dumpFixtures()   로 JSON 다운로드
-    6. 받은 파일을 docs/api-mocking/fixtures/ 에 넣기
+    6. 받은 파일의 내용을 src/mocks/fixtures/captured.json 에 반영
 
   주의: 새로고침하면 수집한 내용이 사라집니다. 내려받기 전에 새로고침하지 마세요.
 */
