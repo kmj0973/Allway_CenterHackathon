@@ -28,4 +28,14 @@ axiosInstance.interceptors.request.use(
   },
 );
 
+/*
+  개발 환경에서 VITE_RECORD_API=true 일 때만 실제 응답을 수집한다.
+  동적 import라 프로덕션 번들에는 포함되지 않는다.
+*/
+if (import.meta.env.DEV && import.meta.env.VITE_RECORD_API === "true") {
+  void import("@/mocks/apiRecorder").then(({ setupApiRecorder }) =>
+    setupApiRecorder(axiosInstance),
+  );
+}
+
 export default axiosInstance;

@@ -1,11 +1,9 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import AppLayout from "@/layouts/AppLayout";
-import ConsultationRoomLayout from "@/layouts/ConsultationRoomLayout";
 import AftercarePage from "@/pages/aftercare";
 import EmergencyReportPage from "@/pages/aftercare/emergency-report";
 import HomePage from "@/pages/home";
 import ConsultationWaitingPage from "@/pages/consultation-waiting";
-import ConsultationRoomPage from "@/pages/consultation-room";
 import ConsultationHubPage from "@/pages/consultation-hub";
 import OnboardingPage from "@/pages/onboarding";
 import LanguageSettingsPage from "@/pages/settings/language";
@@ -17,14 +15,19 @@ import ConsultationCancelledPage from "@/pages/consultation-cancelled";
 import ConsultationDetailPage from "@/pages/consultation-detail";
 import ConsultationSummaryPage from "@/pages/consultation-summary";
 
+const lazyPage =
+  (load: () => Promise<{ default: React.ComponentType }>) => async () => ({
+    Component: (await load()).default,
+  });
+
 const router = createBrowserRouter([
   {
     path: "/consultation/:appointmentId/room",
-    element: <ConsultationRoomLayout />,
+    lazy: lazyPage(() => import("@/layouts/ConsultationRoomLayout")),
     children: [
       {
         index: true,
-        element: <ConsultationRoomPage />,
+        lazy: lazyPage(() => import("@/pages/consultation-room")),
       },
     ],
   },

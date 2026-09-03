@@ -1,7 +1,7 @@
 import ellipse441 from "@/assets/home/glow-ellipse-441.svg";
 import ellipse444 from "@/assets/home/glow-ellipse-444.svg";
-import gradientBottom from "@/assets/home/home-gradient-bottom.png";
-import gradientTop from "@/assets/shared/home-gradient-top.png";
+import gradientBottom from "@/assets/home/home-gradient-bottom.webp";
+import gradientTop from "@/assets/shared/home-gradient-top.webp";
 
 const STATUS_BAR_HEIGHT = 60;
 
@@ -18,6 +18,10 @@ interface GlowEllipse {
  * Figma 210:1532의 레이어 순서를 그대로 따른다.
  * SVG 크기에는 Gaussian blur 여백이 이미 포함되어 있다.
  * 441/444는 원본 SVG가 세로형이므로 Figma처럼 90도 회전한다.
+ *
+ * gradient-bottom / gradient-top은 원래 1300x1300 PNG(합계 683kB)였다.
+ * 내용이 순수한 블러라 500x500 WebP로 줄여도 화질 차이가 없다.
+ * (docs/performance/04-background-images.md 참고)
  */
 const ELLIPSES: GlowEllipse[] = [
   {
