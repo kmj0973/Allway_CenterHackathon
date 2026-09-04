@@ -24,6 +24,10 @@
 ![React Query](https://img.shields.io/badge/React_Query-5-FF4154?style=flat-square&logo=reactquery&logoColor=white)
 ![Zustand](https://img.shields.io/badge/Zustand-5-433E38?style=flat-square)
 
+<br />
+
+**[Live Demo](https://allway-demo.vercel.app)** · **[성능 개선 기록](./docs/performance)** · **[목 API 구성](./docs/api-mocking)**
+
 </div>
 
 ---
@@ -282,6 +286,63 @@ flowchart TB
 
 ---
 
+## Performance
+
+번들 크기와 로딩 속도를 측정 → 개선 → 재측정 사이클로 다뤘습니다.
+측정 조건과 과정은 [`docs/performance`](./docs/performance)에 전부 기록돼 있습니다.
+
+### 결과
+
+| 지표 | 개선 전 | 개선 후 | 변화 |
+| --- | --- | --- | --- |
+| 초기 로드 JS | 2,375.86 kB | 810.27 kB | **-65.9%** |
+| 배경 이미지 | 1,251.52 kB | 89.07 kB | **-92.9%** |
+| PWA 프리캐시 | 2,395 KiB | 869 KiB | **-63.7%** |
+| LCP | 6,929 ms | 4,565 ms | **-34.1%** |
+| FCP | 6,682 ms | 4,333 ms | **-35.2%** |
+| Lighthouse Performance | 56 | 68 | **+12** |
+
+> LCP · FCP · Performance 는 각 빌드 5회 측정의 중앙값입니다.
+> 기준 커밋 `e92cff3` 과 개선 후 `28e69ee` 를 같은 조건에서 측정해 비교했습니다.
+
+### 개선 항목
+
+| 작업 | 내용 | 문서 |
+| --- | --- | --- |
+| **아이콘 최적화** | SVG 안에 base64 로 박혀 있던 래스터 이미지를 벡터로 교체. 2.1 MB → 3.3 KB | [02](./docs/performance/02-icon-optimization.md) |
+| **라우트 코드 스플리팅** | 화상 상담(Agora SDK)을 `lazy` 로 분리하고 PWA 프리캐시에서 제외. 진입 지연은 대기실 선로딩으로 상쇄 | [03](./docs/performance/03-code-splitting.md) |
+| **배경 이미지 최적화** | PNG 3장을 WebP 로 교체. 1,251 kB → 89 kB | [04](./docs/performance/04-background-images.md) |
+| **재측정** | 5회 중앙값으로 실제 개선 효과 확인 | [05](./docs/performance/05-lighthouse.md) |
+
+### 측정 방법
+
+번들 크기처럼 **빌드하면 같은 값이 나오는 결정론적 지표**를 1차 기준으로 삼습니다.
+Lighthouse 는 편차가 커서(동일 빌드 3회에 Performance 35~44) 단독 근거로 쓰지 않고,
+**각 빌드 5회 측정의 중앙값**만 사용합니다.
+
+```bash
+npm run build
+npx vite preview --port 4173
+
+# 측정 대상이 맞는지 빌드 해시로 먼저 확인한다
+curl -s http://localhost:4173/ | grep -o 'index-[A-Za-z0-9_-]*\.js'
+
+npx lighthouse http://localhost:4173/ \
+  --output=json --output-path=./run1.json \
+  --chrome-flags="--headless=new" --only-categories=performance --quiet
+```
+
+> 빌드 해시 확인이 절차에 들어간 이유는, 포트가 밀려 엉뚱한 서버를 측정하고
+> "개선 효과 없음"이라는 잘못된 결론을 낸 적이 있기 때문입니다. ([05](./docs/performance/05-lighthouse.md) 참고)
+
+### 남은 병목
+
+현재 LCP 4,565 ms 중 **약 4,000 ms 는 스플래시 최소 노출 시간**(`SPLASH_DURATION`)입니다.
+네트워크나 번들이 아니라 의도된 애니메이션 시간이므로, 이 수치를 로딩 성능으로 읽으면 안 됩니다.
+추가 개선의 가장 큰 항목이지만 성능이 아니라 기획·디자인 결정 사안입니다.
+
+---
+
 ## Internationalization
 
 allway는 다음 언어를 지원합니다.
@@ -470,6 +531,28 @@ React Router의 `createBrowserRouter`를 사용하므로 배포 서버는 모든
 - HTTPS 적용
 - 카메라 및 마이크 권한
 - 외부 폰트 CDN 접근
+
+### Mock API Demo
+
+백엔드 없이 전체 플로우를 볼 수 있는 데모를 별도로 배포합니다.
+`VITE_USE_MOCK_API=true` 로 빌드하면 MSW 가 API 응답을 대신합니다.
+
+| | [데모](https://allway-demo.vercel.app) | 프로덕션 |
+| --- | --- | --- |
+| `VITE_USE_MOCK_API` | `true` | 미설정 |
+| 데이터 | MSW 목 | 실서버 |
+| PWA | 꺼짐 | 켜짐 |
+
+플래그가 꺼진 빌드에서는 조건이 상수 `false` 로 접혀 **MSW 런타임과 픽스처가 번들에서 제거됩니다.**
+
+```bash
+VITE_USE_MOCK_API=false npm run build
+grep -rl "mockServiceWorker" dist/assets/*.js   # 결과가 없어야 정상
+```
+
+> 데모에서 PWA 를 끄는 이유는 MSW 워커와 Workbox 워커가 모두 스코프 `/` 에 등록되는데
+> 같은 스코프에는 서비스 워커가 하나만 남기 때문입니다.
+> 자세한 구성은 [`docs/api-mocking`](./docs/api-mocking)에 있습니다.
 
 ---
 
