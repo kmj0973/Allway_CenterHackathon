@@ -1,4 +1,4 @@
-import { defineConfig, loadEnv } from "vite";
+import { defineConfig, loadEnv, type Plugin } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
@@ -17,6 +17,50 @@ export default defineConfig(({ mode }) => {
     하나가 매 로드마다 뒤집힌다. 데모 빌드에서는 목이 우선이다.
   */
   const useMockApi = env.VITE_USE_MOCK_API === "true";
+
+  /*
+    PWA 를 끄는 것만으로는 부족하다.
+
+    데모를 이미 방문한 브라우저에는 예전 Workbox 워커가 등록돼 있다. 그 워커는
+    index.html 을 프리캐시하고 모든 네비게이션을 캐시된 셸로 처리하므로,
+    새 빌드를 올려도 방문자는 예전 번들을 계속 받는다. (MSW 가 없는 번들이다)
+
+    브라우저는 네비게이션마다 /sw.js 로 갱신을 검사하는데, 플러그인을 끄면
+    그 파일이 사라지고 vercel.json 의 SPA rewrite 가 index.html 을 대신 내려준다.
+    JS 가 아니라 HTML 이므로 갱신이 실패하고 낡은 워커가 그대로 살아남는다.
+
+    그래서 목 빌드에서도 /sw.js 자리에 "스스로 등록을 해제하는" 워커를 둔다.
+    아무도 이 파일을 register 하지 않는다. 기존 등록의 갱신 검사에만 응답해
+    낡은 워커를 정상적으로 교체·소멸시키는 것이 목적이다.
+    (새 방문자는 이 파일을 아예 내려받지 않으므로 MSW 워커와 충돌하지 않는다)
+  */
+  const selfDestroyingServiceWorker: Plugin = {
+    name: "self-destroying-sw",
+    apply: "build",
+    generateBundle() {
+      this.emitFile({
+        type: "asset",
+        fileName: "sw.js",
+        source: `/* 데모 빌드용. 예전 Workbox 워커를 걷어내기 위해서만 존재한다. */
+self.addEventListener("install", () => self.skipWaiting());
+
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    (async () => {
+      await self.registration.unregister();
+
+      const keys = await caches.keys();
+      await Promise.all(keys.map((key) => caches.delete(key)));
+
+      const clients = await self.clients.matchAll({ type: "window" });
+      clients.forEach((client) => client.navigate(client.url));
+    })(),
+  );
+});
+`,
+      });
+    },
+  };
 
   return {
   /*
@@ -41,7 +85,7 @@ export default defineConfig(({ mode }) => {
   plugins: [
     react(),
     tailwindcss(),
-    ...(useMockApi ? [] : [VitePWA({
+    ...(useMockApi ? [selfDestroyingServiceWorker] : [VitePWA({
       registerType: "prompt",
 
       workbox: {
